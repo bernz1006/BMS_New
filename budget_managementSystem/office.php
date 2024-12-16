@@ -1,6 +1,11 @@
 <?php
 require 'db_connect.php';
-
+session_start();
+if(isset($_SESSION['role'])) {
+    $role = $_SESSION['role'];
+} else {
+    $role = "Unknown";
+}
 $rowsPerPage = isset($_GET['rowsPerPage']) ? $_GET['rowsPerPage'] : 10; // Default 10
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($page - 1) * $rowsPerPage;
@@ -128,15 +133,25 @@ if (!$departments) {
                     </div>
                     
                     <div class="col-md-4 mb-3">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDataModal">
-                        Allocate Budget
-                        </button>
+                        <?php  
+                        if (strcasecmp($role, 'Operator') === 0) {
+                          echo '';
+                      }  
+                      else{
+                        echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDataModal">Allocate Budget</button>';
+                      }                    
+                        ?>
                     </div>
                     <!-- Add New Record Button aligned to the right -->
                     <div class="col-md-2 mb-3  d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary w-100"  data-bs-toggle="modal" data-bs-target="#addBudgetModal">
-                           Create Budget
-                        </button>
+                    <?php  
+                        if (strcasecmp($role, 'Operator') === 0) {
+                          echo '';
+                      }  
+                      else{
+                        echo '<button type="button" class="btn btn-primary w-100"  data-bs-toggle="modal" data-bs-target="#addBudgetModal">Create Budget</button>';
+                      }                    
+                        ?>                                                 
                     </div>         
                     </form>
                 </div>
@@ -171,7 +186,14 @@ if (!$departments) {
             <th>UNUSED FUNDS</th>
             <th>ARO</th>
             <th>STATUS</th>
-            <th>ACTIONS</th>
+            <?php  
+                        if (strcasecmp($role, 'Operator') === 0) {
+                          echo '';
+                      }  
+                      else{
+                        echo '<th>ACTIONS</th>';
+                      }                    
+                        ?>
         </tr>
     </thead>
     <tbody>
@@ -184,6 +206,20 @@ if (!$departments) {
                 } else {
                     echo "<tr>"; 
                 }
+                if (strcasecmp($role, 'Operator') === 0) {
+                  echo "<td>{$i}</td>
+                    <td>{$row['date_created']}</td>
+                    <td>{$row['office']}</td>
+                    <td>{$row['acc_name']}</td>
+                    <td>{$row['acc_code']}</td>
+                    <td>{$row['budget']}</td>
+                    <td>{$row['expense']}</td>
+                    <td>{$row['balance']}</td>              
+                    <td>{$row['aro']}</td>
+                    <td>{$row['status']}</td>            
+                </tr>";
+              }  
+              else{
                 echo "<td>{$i}</td>
                     <td>{$row['date_created']}</td>
                     <td>{$row['office']}</td>
@@ -229,6 +265,7 @@ if (!$departments) {
     </button>
                     </td>
                 </tr>";
+              }                    
                 $i++;
             }
         } else {

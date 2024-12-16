@@ -76,13 +76,15 @@ if (isset($_SESSION['fullname']) && isset($_SESSION['user_id']) && isset($_SESSI
             </a>
         </li>
    
-        <li class="<?php echo ($current_page == 'account.php') ? 'active' : ''; ?>">
+        <li class="<?php echo ($current_page == 'account.php') ? 'active' : ''; ?>"
+        style="<?php echo (strcasecmp($role, 'Administrator') === 0) ? 'display:block;' : 'display:none;'; ?>">
             <a href="./account.php">
                 <i class='bx bxs-user-detail'></i>
                 <span class="text">Account Management</span>
             </a>
         </li>
-        <li class="<?php echo ($current_page == 'activity.php') ? 'active' : ''; ?>">
+        <li class="<?php echo ($current_page == 'activity.php') ? 'active' : ''; ?>" 
+        style="<?php echo (strcasecmp($role, 'Encoder') === 0) ? 'display:none;' : 'display:block;'; ?>">
             <a href="./activity.php">
                 <i class='bx bxs-file-find'></i>
                 <span class="text">Activity Logs</span>

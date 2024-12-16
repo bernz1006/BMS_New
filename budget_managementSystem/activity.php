@@ -1,6 +1,11 @@
 <?php
 require 'db_connect.php';
-
+session_start();
+if(isset($_SESSION['role'])) {
+    $role = $_SESSION['role'];
+} else {
+    $role = "Unknown";
+}
 // Initialize variables for pagination and filtering data
 $rowsPerPage = isset($_GET['rowsPerPage']) ? $_GET['rowsPerPage'] : 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;

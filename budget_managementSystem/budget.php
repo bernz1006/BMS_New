@@ -1,6 +1,11 @@
 <?php
 require 'db_connect.php';
-
+session_start();
+if(isset($_SESSION['role'])) {
+    $role = $_SESSION['role'];
+} else {
+    $role = "Unknown";
+}
 // Get the current page and rows per page
 $rowsPerPage = isset($_GET['rowsPerPage']) ? $_GET['rowsPerPage'] : 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -135,6 +140,7 @@ $departments = $conn->query($department_sql);
                 ?>
             </select>
         </div>
+
         <div class="col-md-3 mb-3">
             <input type="text" class="form-control" id="acc_code2" name="acc_code2" readonly>
         </div>
@@ -142,8 +148,15 @@ $departments = $conn->query($department_sql);
             <input type="text" class="form-control" id="budget2" name="budget2" readonly>
         </div>
         <div class="col-md-2 mb-3">
-            <button type="button" class="btn btn-primary col-12" id="addRecordButton" data-toggle="modal" data-target="#addDataModal2" disabled>Allocate Budget</button>
-        </div>
+        <?php  
+                        if (strcasecmp($role, 'Operator') === 0) {
+                          echo '';
+                      }  
+                      else{
+                        echo '<button type="button" class="btn btn-primary col-12" id="addRecordButton" data-toggle="modal" data-target="#addDataModal2" disabled>Allocate Budget</button>';
+                      }                    
+                        ?> 
+        </div> 
     </div>
 </div>
 <div class="table-responsive" style="max-height: 500px; overflow-y: auto;">

@@ -1,6 +1,11 @@
 <?php
 require 'db_connect.php';
-
+session_start();
+if(isset($_SESSION['role'])) {
+    $role = $_SESSION['role'];
+} else {
+    $role = "Unknown";
+}
 $rowsPerPage = isset($_GET['rowsPerPage']) ? $_GET['rowsPerPage'] : 10;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($page - 1) * $rowsPerPage;
@@ -11,7 +16,7 @@ $totalPages = 1;
 
 if (isset($_GET['view'])) {
     $dataLoaded = true;
-    $sql = "SELECT a.id, b.department_name, a.date_created, a.office, a.acc_name, a.acc_code, a.budget, a.supplemental, a.realignment, a.reprogram, a.expense, a.balance, a.aro, a.release, a.status, a.reason 
+    $sql = "SELECT a.id, b.department_name, a.date_created, a.office, a.acc_name, a.acc_code, a.budget, a.reprogram, a.expense, a.balance, a.aro, a.release, a.status, a.reason 
             FROM tbl_budget a 
             INNER JOIN tbl_departments b ON a.identifier = b.identifier";
     
@@ -126,8 +131,6 @@ if (!$departments) {
             <th>ACCOUNT NAME</th>
             <th>ACCT. CODE</th>
             <th>BUDGET</th>
-            <th>SUPPLEMENTAL</th>
-            <th>REALIGNMENT</th>
             <th>EXPENSE</th>
             <th>BALANCE</th>
             <th>ARO</th>
@@ -154,8 +157,6 @@ if (!$departments) {
                 <td>{$row['acc_name']}</td>
                 <td>{$row['acc_code']}</td>
                 <td>{$row['budget']}</td>
-                <td>{$row['supplemental']}</td>
-                <td>{$row['realignment']}</td>
                 <td>{$row['expense']}</td>
                 <td>{$row['balance']}</td>              
                 <td>{$row['aro']}</td>

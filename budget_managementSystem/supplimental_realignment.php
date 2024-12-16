@@ -1,5 +1,11 @@
 <?php
 require 'db_connect.php';
+session_start();
+if(isset($_SESSION['role'])) {
+    $role = $_SESSION['role'];
+} else {
+    $role = "Unknown";
+}
 
 $rowsPerPage = isset($_GET['rowsPerPage']) ? $_GET['rowsPerPage'] : 10; // Default 10
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -130,15 +136,25 @@ if (!$departments) {
                     </div>
                     
                     <div class="col-md-3 mb-3 d-flex justify-content-end"  style="margin-left:165px;">
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRealignmentModal">
-                        Add Realignment
-                        </button>
+                    <?php  
+                        if (strcasecmp($role, 'Operator') === 0) {
+                          echo '';
+                      }  
+                      else{
+                        echo '<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addRealignmentModal">Add Realignment</button>';
+                      }                    
+                        ?>   
                     </div>
                     <!-- Add New Record Button aligned to the right -->
                     <div class="col-md-3 mb-3  d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#addSupplementalModal">
-                           Add Supplemental
-                        </button>
+                    <?php  
+                        if (strcasecmp($role, 'Operator') === 0) {
+                          echo '';
+                      }  
+                      else{
+                        echo '<button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#addSupplementalModal">Add Supplemental</button>';
+                      }                    
+                        ?> 
                     </div>         
                     </form>
                 </div>                

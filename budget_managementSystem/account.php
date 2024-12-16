@@ -1,5 +1,11 @@
 <?php
 require 'db_connect.php';
+session_start();
+if(isset($_SESSION['role'])) {
+    $role = $_SESSION['role'];
+} else {
+    $role = "Unknown";
+}
 
 $rowsPerPage = isset($_GET['rowsPerPage']) && is_numeric($_GET['rowsPerPage']) ? (int)$_GET['rowsPerPage'] : 10;
 $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;

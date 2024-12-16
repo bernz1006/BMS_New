@@ -80,16 +80,14 @@ $pdf->Ln();
 
 $pdf->SetFont('helvetica', 'B', 10);
 $pdf->Cell(10, 8, 'No.', 1);
-$pdf->Cell(35, 8, 'DATE', 1); 
-$pdf->Cell(45, 8, 'OFFICE', 1);
-$pdf->Cell(75, 8, 'ACCOUNT NAME', 1);
-$pdf->Cell(25, 8, 'ACCT. CODE', 1);
-$pdf->Cell(22, 8, 'BUDGET', 1);
-$pdf->Cell(30, 8, 'SUPPLEMENTAL', 1);
-$pdf->Cell(30, 8, 'REALIGNMENT', 1);
-$pdf->Cell(22, 8, 'EXPENSE', 1);
-$pdf->Cell(22, 8, 'BALANCE', 1);
-$pdf->Cell(20, 8, 'ARO', 1);
+$pdf->Cell(40, 8, 'DATE', 1); 
+$pdf->Cell(50, 8, 'OFFICE', 1);
+$pdf->Cell(80, 8, 'ACCOUNT NAME', 1);
+$pdf->Cell(35, 8, 'ACCT. CODE', 1);
+$pdf->Cell(27, 8, 'BUDGET', 1);
+$pdf->Cell(27, 8, 'EXPENSE', 1);
+$pdf->Cell(27, 8, 'BALANCE', 1);
+$pdf->Cell(25, 8, 'ARO', 1);
 $pdf->Ln();
 
 $pdf->SetFont('helvetica', '', 10);
@@ -98,16 +96,14 @@ if ($result->num_rows > 0) {
     $result->data_seek(0);
     while ($row = $result->fetch_assoc()) {
         $pdf->Cell(10, 8, $i, 1);
-        $pdf->Cell(35, 8, $row['date_created'], 1);
-        $pdf->Cell(45, 8, $row['office'], 1);
-        $pdf->Cell(75, 8, $row['acc_name'], 1);
-        $pdf->Cell(25, 8, $row['acc_code'], 1);
-        $pdf->Cell(22, 8, $row['budget'], 1);
-        $pdf->Cell(30, 8, $row['supplemental'], 1);
-        $pdf->Cell(30, 8, $row['realignment'], 1);
-        $pdf->Cell(22, 8, $row['expense'], 1);
-        $pdf->Cell(22, 8, $row['balance'], 1);
-        $pdf->Cell(20, 8, $row['aro'], 1);
+        $pdf->Cell(40, 8, $row['date_created'], 1);
+        $pdf->Cell(50, 8, $row['office'], 1);
+        $pdf->Cell(80, 8, $row['acc_name'], 1);
+        $pdf->Cell(35, 8, $row['acc_code'], 1);
+        $pdf->Cell(27, 8, $row['budget'], 1);
+        $pdf->Cell(27, 8, $row['expense'], 1);
+        $pdf->Cell(27, 8, $row['balance'], 1);
+        $pdf->Cell(25, 8, $row['aro'], 1);
         $pdf->Ln();
         $i++;
     }
